@@ -14,17 +14,15 @@ os.environ['TOKEN'] = 'AAAAAAAAAAAAAAAAAAAAAFEjeQEAAAAAokV07whI73HboXpYPJSzqn1e6
 def auth():
   return os.getenv('TOKEN')
 
+
 def create_headers(bearer_token):
   headers = {"Authorization": "Bearer {}".format(bearer_token)}
   return headers
 
-def create_url(keyword, start_date, end_date, max_results = 10):
+def create_url(keyword, start_date, end_date, max_results=10):
   search_url = "https://api.twitter.com/2/tweets/search/all"
-  query_params = {'query': keyword,
-                    'start_time': start_date,
-                    'end_time': end_date,
-                    'max_results': max_results,
-                    'expansions': 'author_id,in_reply_to_user_id,geo.place_id',
+  query_params = {'query': keyword, 'start_time': start_date, 'end_time': end_date,
+                    'max_results': max_results,'expansions': 'author_id,in_reply_to_user_id,geo.place_id',
                     'tweet.fields': 'id,text,author_id,in_reply_to_user_id,geo,conversation_id, created_at,lang,public_metrics,referenced_tweets,reply_settings,source',
                     'user.fields': 'id,name,username,created_at,description,public_metrics,verified',
                     'place.fields': 'full_name,id,country,country_code,geo,name,place_type',
@@ -66,7 +64,7 @@ for i in range(0, len(start_list)):
       break
     print("-------------------")
     print("Token: ", next_token)
-    url = create_url(keyword, start_list[i],end_list[i], max_results)
+    url = create_url(keyword, start_list[i], end_list[i], max_results)
     json_response = connect_to_endpoint(url[0], headers, url[1], next_token)
     result_count = json_response['meta']['result_count']
 
@@ -80,7 +78,7 @@ for i in range(0, len(start_list)):
         total_tweets += result_count
         print("Total # of Tweets added: ", total_tweets)
         print("-------------------")
-        time.sleep(5)                
+        time.sleep(5)      
     else:
       if result_count is not None and result_count > 0:
         print("-------------------")
