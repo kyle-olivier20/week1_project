@@ -10,6 +10,7 @@ import time
 
 os.environ['TOKEN'] = 'AAAAAAAAAAAAAAAAAAAAAFEjeQEAAAAAokV07whI73HboXpYPJSzqn1e6Es%3DKss22KvpQqUv1l7CdhPG7SpsKorBJkvlQ7neRHttIo89BQcYYg'
 
+
 def auth():
   return os.getenv('TOKEN')
 
@@ -38,6 +39,7 @@ def connect_to_endpoint(url, headers, params, next_token = None):
     raise Exception(response.status_code, response.text)
   return response.json()
 
+
 bearer_token = auth()
 headers = create_headers(bearer_token)
 keyword = "xbox lang:en"
@@ -54,7 +56,7 @@ with open('data.json', 'w') as f:
 df = pd.DataFrame(response['json_response'])
 df.to_csv('data.csv')
 
-for i in range(0,len(start_list)):
+for i in range(0, len(start_list)):
   count = 0
   max_count = 100
   flag = True
